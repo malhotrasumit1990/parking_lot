@@ -1,13 +1,13 @@
 package datalayer
 
-type carPark struct {
+type CarPark struct {
 	RegNum string
 	Color  string
 	Slot   int
 }
 
 //Parkings is exported to be accessed in other packages. mapping between parking slot and vehicle parked
-var Parkings map[int]string
+var Parkings map[int]interface{}
 
 //ParkingCapacity is total space available
 var ParkingCapacity int

@@ -1,6 +1,10 @@
 package businesslayer
 
-import "github.com/ParkingLot/src/datalayer"
+import (
+	"fmt"
+
+	"github.com/ParkingLot/src/datalayer"
+)
 
 //ParkingLot Interface
 type ParkingLot interface {
@@ -19,7 +23,7 @@ type ParkingLotImpl struct {
 //SpaceOccupied in parking lot
 var SpaceOccupied int
 
-func (impl ParkingLotImpl) parkVehicle(vehicleNum string) string {
+func (impl ParkingLotImpl) ParkVehicle(vehicleNum string, color string) string {
 
 	if isFull() {
 		return parkingFull
@@ -34,33 +38,24 @@ func (impl ParkingLotImpl) parkVehicle(vehicleNum string) string {
 	if err != nil {
 		return err.Error()
 	}
-	datalayer.Parkings[parkingNum] = vehicleNum
+
+	carPark := datalayer.CarPark{vehicleNum, color, parkingNum}
+	datalayer.Parkings[parkingNum] = carPark
 	SpaceOccupied = SpaceOccupied + 1
-	return "Vehicle Parked"
+	return fmt.Sprintf("Allocated slot number: %d \n", parkingNum)
 }
 
-func (impl ParkingLotImpl) unparkVehicle(vehicleNum string) string {
+func (impl ParkingLotImpl) UnparkVehicle(parkingNum int) string {
 
 	if isEmpty() {
 		return parkingEmpty
 	}
-	valid := validateVehicleNumber(vehicleNum)
-
-	if !valid {
-		return "enter valid number"
-	}
-
-	for k, v := range datalayer.Parkings {
-		if v == vehicleNum {
-			datalayer.Parkings[k] = ""
-			SpaceOccupied = SpaceOccupied - 1
-			break
-		}
-	}
-	return "Vehicle UnParked"
+	datalayer.Parkings[parkingNum] = ""
+	SpaceOccupied = SpaceOccupied - 1
+	return fmt.Sprintf("Slot number %d is free ", parkingNum)
 }
 
-func (impl ParkingLotImpl) getVehicleParkedAt(parkingNum string) string {
+func (impl ParkingLotImpl) GetVehicleParkedAt(parkingNum string) string {
 	vehicleNum := datalayer.Parkings[parkingNum]
 	if vehicleNum == "" {
 		return parkingAvailable

@@ -3,8 +3,7 @@ package businesslayer
 import (
 	"errors"
 	"fmt"
-	"log"
-	"regexp"
+	"strings"
 
 	"github.com/ParkingLot/src/dataLayer"
 )
@@ -23,17 +22,10 @@ var closestEmptyParking = func() (string, error) {
 
 var validateVehicleNumber = func(number string) bool {
 
-	match, _ := regexp.MatchString("[a-z][0-9]", number)
-	if match {
-		if !(len(number) > 5 && len(number) < 8) {
-			log.Println("Length of vehicle registeration must be greater than 5 and less than 8")
-			return false
-		}
-	} else {
-		log.Println("Vehicle number should be alphanumeric only")
-		return false
+	if strings.Contains("-") && len(number) == 13 {
+		return true
 	}
-	return true
+	return false
 }
 
 var isEmpty = func() bool {

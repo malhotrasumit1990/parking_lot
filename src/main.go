@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/ParkingLot/src/businesslayer"
 	"github.com/ParkingLot/src/datalayer"
 )
 
@@ -13,6 +14,7 @@ import (
 func init() {
 	//initialize parking map
 	datalayer.Parkings = make(map[int]string)
+	parkingLot := businesslayer.ParkingLotImpl{}
 }
 
 func main() {
@@ -34,10 +36,10 @@ func main() {
 			fmt.Printf("Created a parking lot with %d slots\n", capacityInt)
 			break
 		case "park":
-			fmt.Println(param1, param2)
+			fmt.Print(parkingLot.ParkVehicle(param1, param2))
 			break
 		case "leave":
-			fmt.Println("three")
+			fmt.Print(parkingLot.UnparkVehicle(param1))
 			break
 		case "status":
 			fmt.Println("four")
