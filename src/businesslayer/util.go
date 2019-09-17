@@ -2,27 +2,25 @@ package businesslayer
 
 import (
 	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/ParkingLot/src/dataLayer"
 )
 
 //returns first empty parking
-var closestEmptyParking = func() (string, error) {
+var closestEmptyParking = func() (int, error) {
 
 	for k, v := range dataLayer.Parkings {
 		if v == "" {
-			fmt.Println("Closest empty parking : " + k)
 			return k, nil
 		}
 	}
-	return "", errors.New("Parking full")
+	return 0, errors.New("Parking full")
 }
 
 var validateVehicleNumber = func(number string) bool {
 
-	if strings.Contains("-") && len(number) == 13 {
+	if strings.Contains(number, "-") && len(number) == 13 {
 		return true
 	}
 	return false

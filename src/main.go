@@ -6,15 +6,17 @@ import (
 	"strconv"
 
 	"github.com/ParkingLot/src/businesslayer"
-	"github.com/ParkingLot/src/datalayer"
+	"github.com/ParkingLot/src/dataLayer"
 )
 
 //setup Parking lot
 
+var parkingLot businesslayer.ParkingLotImpl
+
 func init() {
 	//initialize parking map
-	datalayer.Parkings = make(map[int]string)
-	parkingLot := businesslayer.ParkingLotImpl{}
+	dataLayer.Parkings = make(map[int]interface{})
+	parkingLot = businesslayer.ParkingLotImpl{}
 }
 
 func main() {
@@ -32,14 +34,19 @@ func main() {
 				fmt.Println(err.Error() + "Enter a proper integer for parking numbers")
 				break
 			}
-			datalayer.CreateParkingSpace(capacityInt)
+			dataLayer.CreateParkingSpace(capacityInt)
 			fmt.Printf("Created a parking lot with %d slots\n", capacityInt)
 			break
 		case "park":
 			fmt.Print(parkingLot.ParkVehicle(param1, param2))
 			break
 		case "leave":
-			fmt.Print(parkingLot.UnparkVehicle(param1))
+			slot, err := strconv.Atoi(param1)
+			if err != nil {
+				fmt.Println(err.Error() + "Enter a proper integer for slot")
+				break
+			}
+			fmt.Print(parkingLot.UnparkVehicle(slot))
 			break
 		case "status":
 			fmt.Println("four")

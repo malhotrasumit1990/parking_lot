@@ -3,17 +3,17 @@ package businesslayer
 import (
 	"fmt"
 
-	"github.com/ParkingLot/src/datalayer"
+	"github.com/ParkingLot/src/dataLayer"
+	datalayer "github.com/ParkingLot/src/dataLayer"
 )
 
 //ParkingLot Interface
 type ParkingLot interface {
-	parkVehicle(vehicleNum string) string
-	unparkVehicle(vehicleNum string) string
-	getVehicleParkedAt(parkingNum string) string
-	getRegNum(color string) []regNumbers
-	getSlotNum(regNum string) int
-	getSlots(color string) []int
+	ParkVehicle(vehicleNum string) string
+	UnparkVehicle(vehicleNum string) string
+	//GetVehicleParkedAt(parkingNum string) string
+	//getSlotNum(regNum string) int
+	//getSlots(color string) []int
 }
 
 //ParkingLotImpl impementation
@@ -39,8 +39,8 @@ func (impl ParkingLotImpl) ParkVehicle(vehicleNum string, color string) string {
 		return err.Error()
 	}
 
-	carPark := datalayer.CarPark{vehicleNum, color, parkingNum}
-	datalayer.Parkings[parkingNum] = carPark
+	carPark := dataLayer.CarPark{vehicleNum, color, parkingNum}
+	dataLayer.Parkings[parkingNum] = carPark
 	SpaceOccupied = SpaceOccupied + 1
 	return fmt.Sprintf("Allocated slot number: %d \n", parkingNum)
 }
@@ -53,12 +53,4 @@ func (impl ParkingLotImpl) UnparkVehicle(parkingNum int) string {
 	datalayer.Parkings[parkingNum] = ""
 	SpaceOccupied = SpaceOccupied - 1
 	return fmt.Sprintf("Slot number %d is free ", parkingNum)
-}
-
-func (impl ParkingLotImpl) GetVehicleParkedAt(parkingNum string) string {
-	vehicleNum := datalayer.Parkings[parkingNum]
-	if vehicleNum == "" {
-		return parkingAvailable
-	}
-	return vehicleNum
 }
