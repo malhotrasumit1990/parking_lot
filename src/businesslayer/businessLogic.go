@@ -7,6 +7,9 @@ type ParkingLot interface {
 	parkVehicle(vehicleNum string) string
 	unparkVehicle(vehicleNum string) string
 	getVehicleParkedAt(parkingNum string) string
+	getRegNum(color string) []regNumbers
+	getSlotNum(regNum string) int
+	getSlots(color string) []int
 }
 
 //ParkingLotImpl impementation
