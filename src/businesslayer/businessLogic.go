@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/ParkingLot/src/dataLayer"
+	"github.com/parking_lot/src/dataLayer"
 )
 
 //ParkingLot Interface
@@ -49,12 +49,18 @@ func (impl ParkingLotImpl) ParkVehicle(regNum string, color string) string {
 
 func (impl ParkingLotImpl) UnparkVehicle(parkingNum int) string {
 
+	if parkingNum < 1 {
+		return "Parking slot starts from 1"
+	}
 	if isEmpty() {
 		return parkingEmpty
 	}
-	dataLayer.Parkings[parkingNum-1] = dataLayer.CarPark{}
-	SpaceOccupied = SpaceOccupied - 1
-	return fmt.Sprintf("Slot number %d is free ", parkingNum)
+	if dataLayer.Parkings[parkingNum-1].Slot != 0 {
+		dataLayer.Parkings[parkingNum-1] = dataLayer.CarPark{}
+		SpaceOccupied = SpaceOccupied - 1
+	}
+
+	return fmt.Sprintf("Slot number %d is free \n", parkingNum)
 }
 
 func (impl ParkingLotImpl) GetStatus() []dataLayer.CarPark {

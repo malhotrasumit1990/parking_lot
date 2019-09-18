@@ -5,8 +5,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/ParkingLot/src/businesslayer"
-	"github.com/ParkingLot/src/dataLayer"
+	"github.com/parking_lot/src/businesslayer"
+	"github.com/parking_lot/src/dataLayer"
 )
 
 //setup Parking lot
@@ -46,19 +46,19 @@ func main() {
 				fmt.Println(err.Error() + "Enter a proper integer for slot")
 				break
 			}
-			fmt.Print(parkingLot.UnparkVehicle(slot))
+			fmt.Println(parkingLot.UnparkVehicle(slot))
 			break
 		case "status":
-			fmt.Print(parkingLot.GetStatus())
+			fmt.Println(parkingLot.GetStatus())
 			break
 		case "registration_numbers_for_cars_with_colour":
-			fmt.Printf("%s", parkingLot.GetRegNumsWithColor(param1))
+			fmt.Printf("%s \n", parkingLot.GetRegNumsWithColor(param1))
 			break
 		case "slot_numbers_for_cars_with_colour":
-			fmt.Printf("%d", parkingLot.GetSlotsForColor(param1))
+			fmt.Printf("%d \n", parkingLot.GetSlotsForColor(param1))
 			break
 		case "slot_number_for_registration_number":
-			fmt.Printf("%s", parkingLot.GetSlotforRegistrationNumber(param1))
+			fmt.Printf("%s \n", parkingLot.GetSlotforRegistrationNumber(param1))
 			break
 		case "exit":
 			os.Exit(1)

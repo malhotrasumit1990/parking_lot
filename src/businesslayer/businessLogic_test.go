@@ -3,7 +3,7 @@ package businesslayer
 import (
 	"testing"
 
-	"github.com/ParkingLot/src/dataLayer"
+	"github.com/parking_lot/src/dataLayer"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -48,7 +48,7 @@ func TestParkingLotApp(t *testing.T) {
 	t.Run("UnparkVehicle", func(t *testing.T) {
 		slot := 3
 		msg := parkingImpl.UnparkVehicle(slot)
-		assert.Equal(t, "Slot number 3 is free ", msg)
+		assert.Equal(t, "Slot number 3 is free \n", msg)
 		slotVal := dataLayer.Parkings[2].Slot
 		assert.Equal(t, 0, slotVal)
 

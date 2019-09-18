@@ -4,10 +4,10 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/ParkingLot/src/dataLayer"
+	"github.com/parking_lot/src/dataLayer"
 )
 
-//returns first empty parking
+//returns parking that is nearest to the entry
 var closestEmptyParking = func() (int, error) {
 
 	for k, v := range dataLayer.Parkings {
@@ -18,9 +18,10 @@ var closestEmptyParking = func() (int, error) {
 	return -1, errors.New("Parking full")
 }
 
+//just a nominal validation
 var validateVehicleNumber = func(number string) bool {
 
-	if strings.Contains(number, "-") && len(number) == 13 {
+	if strings.Contains(number, "-") && len(number) >= 10 && len(number) <= 13 {
 		return true
 	}
 	return false
