@@ -1,0 +1,7 @@
+package: github.com/parking_lot/src
+
+testImport:
+- package: github.com/stretchr/testify
+  version: f35b8ab0b5a2cef36673838d662e249dd9c94686
+  subpackages:
+  - assert
