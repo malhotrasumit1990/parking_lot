@@ -3,7 +3,8 @@
 
 2. Folder Structure for parking_lot application : 
 		
-	parking_lot
+	parking_lot:
+	
 		--> src
 			--> main.go
 			--> MakeFile
@@ -15,7 +16,7 @@
 				--> businessLogic_test.go
 				--> constants.go
 				--> util.go
-			
+				
 		--> bin
 			-->setup.sh
 			-->parking_slot.sh
