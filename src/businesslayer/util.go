@@ -11,11 +11,11 @@ import (
 var closestEmptyParking = func() (int, error) {
 
 	for k, v := range dataLayer.Parkings {
-		if v == "" {
+		if v.Slot == 0 {
 			return k, nil
 		}
 	}
-	return 0, errors.New("Parking full")
+	return -1, errors.New("Parking full")
 }
 
 var validateVehicleNumber = func(number string) bool {

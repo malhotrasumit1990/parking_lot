@@ -15,7 +15,7 @@ var parkingLot businesslayer.ParkingLotImpl
 
 func init() {
 	//initialize parking map
-	dataLayer.Parkings = make(map[int]interface{})
+	dataLayer.Parkings = []dataLayer.CarPark{}
 	parkingLot = businesslayer.ParkingLotImpl{}
 }
 
@@ -49,16 +49,16 @@ func main() {
 			fmt.Print(parkingLot.UnparkVehicle(slot))
 			break
 		case "status":
-			fmt.Println("four")
+			fmt.Print(parkingLot.GetStatus())
 			break
 		case "registration_numbers_for_cars_with_colour":
-			fmt.Println("five")
+			fmt.Printf("%s", parkingLot.GetRegNumsWithColor(param1))
 			break
 		case "slot_numbers_for_cars_with_colour":
-			fmt.Println("six")
+			fmt.Printf("%d", parkingLot.GetSlotsForColor(param1))
 			break
 		case "slot_number_for_registration_number":
-			fmt.Println("seven")
+			fmt.Printf("%s", parkingLot.GetSlotforRegistrationNumber(param1))
 			break
 		case "exit":
 			os.Exit(1)
