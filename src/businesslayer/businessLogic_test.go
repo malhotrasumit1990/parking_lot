@@ -20,6 +20,7 @@ func initializeParking(t *testing.T) {
 	carPark6 := dataLayer.CarPark{}
 
 	dataLayer.ParkingCapacity = 6
+	SpaceOccupied = 3
 
 	dummyParking = append(dummyParking, carPark1, carPark2, carPark3, carPark4, carPark5, carPark6)
 	dataLayer.Parkings = dummyParking
@@ -27,15 +28,28 @@ func initializeParking(t *testing.T) {
 
 func TestParkVehicle(t *testing.T) {
 	initializeParking(t)
-	SpaceOccupied = 3
-	regNum := "DL-05-MM-8653"
-	color := "Black"
-	parkingImpl = ParkingLotImpl{}
-	parkingImpl.ParkVehicle(regNum, color)
 
-	assert.Equal(t, "Black", dataLayer.Parkings[3].Color)
-	assert.Equal(t, "DL-05-MM-8653", dataLayer.Parkings[3].RegNum)
-	assert.Equal(t, 4, SpaceOccupied)
+	t.Run("Parking Full", func(t *testing.T) {
+		SpaceOccupied = 6
+		regNum := "DL-05-MM-8653"
+		color := "Black"
+		parkingImpl = ParkingLotImpl{}
+		msg := parkingImpl.ParkVehicle(regNum, color)
+
+		assert.Equal(t, parkingFull, msg)
+	})
+
+	t.Run("Parked", func(t *testing.T) {
+		SpaceOccupied = 3
+		regNum := "DL-05-MM-8653"
+		color := "Black"
+		parkingImpl = ParkingLotImpl{}
+		parkingImpl.ParkVehicle(regNum, color)
+
+		assert.Equal(t, "Black", dataLayer.Parkings[3].Color)
+		assert.Equal(t, "DL-05-MM-8653", dataLayer.Parkings[3].RegNum)
+		assert.Equal(t, 4, SpaceOccupied)
+	})
 
 }
 func TestIsFull(t *testing.T) {
@@ -47,18 +61,47 @@ func TestIsFull(t *testing.T) {
 }
 func TestUnparkVehicle(t *testing.T) {
 	initializeParking(t)
+	parkingImpl = ParkingLotImpl{}
+	slot := 3
+	msg := parkingImpl.UnparkVehicle(slot)
+	assert.Equal(t, "Slot number 3 is free ", msg)
+
+	slotVal := dataLayer.Parkings[2].Slot
+
+	assert.Equal(t, 0, slotVal)
+
 }
 func TestGetStatus(t *testing.T) {
 	initializeParking(t)
+	parkingImpl = ParkingLotImpl{}
+	msg := parkingImpl.GetStatus()
+	assert.Equal(t, 4, len(msg))
+
 }
 func TestGetRegNumsWithColor(t *testing.T) {
 	initializeParking(t)
+	parkingImpl = ParkingLotImpl{}
+	color := "White"
+	msg := parkingImpl.GetRegNumsWithColor(color)
+	assert.Equal(t, 2, len(msg))
+	assert.Equal(t, "KA-01-HH-1234", msg[0])
+	assert.Equal(t, "KA-01-LL-9999", msg[1])
 }
 
 func TestGetSlotsForColor(t *testing.T) {
 	initializeParking(t)
+	parkingImpl = ParkingLotImpl{}
+	color := "White"
+	msg := parkingImpl.GetSlotsForColor(color)
+	assert.Equal(t, 2, len(msg))
+	assert.Equal(t, 1, msg[0])
+	assert.Equal(t, 5, msg[1])
 }
 
 func TestGetSlotforRegistrationNumber(t *testing.T) {
 	initializeParking(t)
+	parkingImpl = ParkingLotImpl{}
+	regNum := "KA-01-HH-1234"
+	msg := parkingImpl.GetSlotforRegistrationNumber(regNum)
+	assert.Equal(t, "1", msg)
 }

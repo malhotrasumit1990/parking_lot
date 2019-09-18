@@ -14,7 +14,7 @@ var Parkings []CarPark
 var ParkingCapacity int
 
 //CreateParkingSpace : creates parking space
-func CreateParkingSpace(capacity int) {
+var CreateParkingSpace = func(capacity int) {
 	for parkingNumber := 1; parkingNumber <= capacity; parkingNumber++ {
 		Parkings = append(Parkings, CarPark{})
 	}
