@@ -35,11 +35,13 @@
 	Steps 1 and 2 are common for both command line execution of application or file based execution of application.
 
 	3.  To test the application from command line : 
+	
 		> Go to src folder
 		> Execute "go run main.go"	
 		> Applcation is now ready to take user inputs from console
 
 	4. To Test the application from File based inputs : 
+	
 		> Go to bin folder
 		> Execute "bash parking_lot.sh"
 		> It will prompt/ask for input file path. Provide the entire path including file name and extension
